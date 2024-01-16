@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, TextInput, StyleSheet, Text, ImageBackground, TouchableOpacity } from 'react-native';
 
-const LoginForm = ({ navigation }) => {
+const RegisterForm = ({ navigation }) => {
     return (
         <ImageBackground
             source={require('../../assets/LoginScreen.png')}
@@ -10,7 +10,14 @@ const LoginForm = ({ navigation }) => {
             <View style={styles.container}>
                 <TextInput
                     style={styles.input}
-                    placeholder="Username"
+                    placeholder="Name"
+                    placeholderTextColor="black"
+                    keyboardType="email-address"
+                    autoCapitalize="none"
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Email"
                     placeholderTextColor="black"
                     keyboardType="email-address"
                     autoCapitalize="none"
@@ -23,17 +30,8 @@ const LoginForm = ({ navigation }) => {
                 />
 
                 <TouchableOpacity style={styles.button}>
-                    <Text style={styles.buttonText}>Login</Text>
+                    <Text style={styles.buttonText} onPress={() => navigation.navigate('LoginForm')}>Daftar Sekarang</Text>
                 </TouchableOpacity>
-                <Text style={styles.registerText}>
-                    Belum memiliki akun?{' '}
-                    <Text
-                        style={styles.registerLink}
-                        onPress={() => navigation.navigate('RegisterForm')}
-                    >
-                        Daftar sekarang
-                    </Text>
-                </Text>
             </View>
         </ImageBackground>
     );
@@ -44,7 +42,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 40
+        marginTop: 20
     },
     background: {
         flex: 1,
@@ -62,27 +60,21 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
     },
     button: {
+        backgroundColor: '#A94438',
         padding: 10,
         marginVertical: 10,
         borderRadius: 5,
-        width: 100,
+        width: 200,
         alignItems: 'center',
         borderWidth: 1,
         borderColor: 'black',
     },
-    registerText: {
-        color: 'black',
-        marginTop: 10,
-    },
-    registerLink: {
-        color: 'red',
-        textDecorationLine: 'underline',
-    },
     buttonText: {
-        color: 'black',
+        color: 'white',
+        alignItems: 'center',
         fontSize: 16,
         fontWeight: 'bold',
     },
 });
 
-export default LoginForm;
+export default RegisterForm;
