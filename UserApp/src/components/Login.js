@@ -4,7 +4,7 @@ import { View, TextInput, StyleSheet, Text, ImageBackground, TouchableOpacity } 
 const LoginForm = ({ navigation }) => {
     return (
         <ImageBackground
-            source={require('../../assets/LoginScreen.png')}
+            source={require('../../assets/Login.png')}
             style={styles.background}
         >
             <View style={styles.container}>
@@ -23,14 +23,14 @@ const LoginForm = ({ navigation }) => {
                 />
 
                 <TouchableOpacity style={styles.button}>
-                    <Text style={styles.buttonText}>Login</Text>
+                    <Text style={styles.buttonText}>Sign In</Text>
                 </TouchableOpacity>
                 <Text style={styles.registerText}>
-                    Belum memiliki akun?{' '}
+                    Don't have an account?{' '}
                     <Text
-                        style={styles.registerLink}
+                        style={[styles.registerLink, {color: "#0C94D2"}]}
                     >
-                        Daftar sekarang
+                        Register
                     </Text>
                 </Text>
             </View>
@@ -66,6 +66,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         width: 100,
         alignItems: 'center',
+        backgroundColor: '#0C94D2',
         borderWidth: 1,
         borderColor: 'black',
     },
@@ -74,11 +75,11 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },
     registerLink: {
-        color: 'dark-red',
+        color: '0C94D2',
         textDecorationLine: 'underline',
     },
     buttonText: {
-        color: 'black',
+        color: 'white',
         fontSize: 16,
         fontWeight: 'bold',
     },
