@@ -4,7 +4,7 @@ import { View, TextInput, StyleSheet, Text, ImageBackground, TouchableOpacity } 
 const LoginForm = ({ navigation }) => {
     return (
         <ImageBackground
-            source={require('../../assets/LoginScreen.png')}
+            source={require('../../assets/imagelogin.png')}
             style={styles.background}
         >
             <View style={styles.container}>
@@ -23,15 +23,15 @@ const LoginForm = ({ navigation }) => {
                 />
 
                 <TouchableOpacity style={styles.button}>
-                    <Text style={styles.buttonText}>Login</Text>
+                    <Text style={[styles.buttonText, {color: 'white'}]}>Login</Text>
                 </TouchableOpacity>
                 <Text style={styles.registerText}>
-                    Belum memiliki akun?{' '}
+                    Don't have an account?{' '}
                     <Text
-                        style={styles.registerLink}
+                        style={[styles.registerLink, {color: '#0C94D2'}]}
                         onPress={() => navigation.navigate('RegisterForm')}
                     >
-                        Daftar sekarang
+                        Register
                     </Text>
                 </Text>
             </View>
@@ -44,7 +44,6 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 40
     },
     background: {
         flex: 1,
@@ -53,7 +52,7 @@ const styles = StyleSheet.create({
     },
     input: {
         borderWidth: 1,
-        color: 'black',
+        color: 'white',
         borderColor: '#ccc',
         borderRadius: 5,
         width: 200,
@@ -68,7 +67,7 @@ const styles = StyleSheet.create({
         width: 100,
         alignItems: 'center',
         borderWidth: 1,
-        borderColor: 'black',
+        backgroundColor: '#0C94D2',
     },
     registerText: {
         color: 'black',
