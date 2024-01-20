@@ -4,7 +4,7 @@ import { View, TextInput, StyleSheet, Text, ImageBackground, TouchableOpacity } 
 const RegisterForm = ({ navigation }) => {
     return (
         <ImageBackground
-            source={require('../../assets/LoginScreen.png')}
+            source={require('../../assets/imagelogin.png')}
             style={styles.background}
         >
             <View style={styles.container}>
@@ -30,8 +30,17 @@ const RegisterForm = ({ navigation }) => {
                 />
 
                 <TouchableOpacity style={styles.button}>
-                    <Text style={styles.buttonText} onPress={() => navigation.navigate('LoginForm')}>Daftar Sekarang</Text>
+                    <Text style={styles.buttonText}>Login</Text>
                 </TouchableOpacity>
+                <Text style={styles.registerText}>
+                    Already have a account?{' '}
+                    <Text
+                        style={[styles.registerLink, { color: '#0C94D2' }]}
+                        onPress={() => navigation.navigate('LoginForm')}
+                    >
+                        Login
+                    </Text>
+                </Text>
             </View>
         </ImageBackground>
     );
@@ -42,7 +51,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 20
+        marginTop: 30
     },
     background: {
         flex: 1,
@@ -60,7 +69,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
     },
     button: {
-        backgroundColor: '#A94438',
+        backgroundColor: '#0C94D2',
         padding: 10,
         marginVertical: 10,
         borderRadius: 5,

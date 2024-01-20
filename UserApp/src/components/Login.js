@@ -23,13 +23,15 @@ const LoginForm = ({ navigation }) => {
                 />
 
                 <TouchableOpacity style={styles.button}>
-                    <Text style={styles.buttonText}>Login</Text>
+                    <Text style={[styles.buttonText, {color: 'white'}]}>Login</Text>
                 </TouchableOpacity>
                 <Text style={styles.registerText}>
                     Don't have an account?{' '}
                     <Text
-                        style={styles.registerLink}
-                    >
+                        style={[styles.registerLink, {color: '#0C94D2'}]}
+                        onPress={() => navigation.navigate('RegisterForm')}
+            
+                    />
                         Register
                     </Text>
                 </Text>
@@ -43,7 +45,6 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 40
     },
     background: {
         flex: 1,
@@ -52,8 +53,8 @@ const styles = StyleSheet.create({
     },
     input: {
         borderWidth: 1,
-        color: 'black',
-        borderColor: 'black',
+        color: 'white',
+        borderColor: '#ccc',
         borderRadius: 5,
         width: 200,
         height: 40,
@@ -68,7 +69,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#0C94D2',
         borderWidth: 1,
-        borderColor: 'black',
+        backgroundColor: '#0C94D2',
     },
     registerText: {
         color: 'black',
