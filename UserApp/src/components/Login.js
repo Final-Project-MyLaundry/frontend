@@ -23,7 +23,7 @@ const LoginForm = ({ navigation }) => {
                 />
 
                 <TouchableOpacity style={styles.button}>
-                    <Text style={styles.buttonText}>Login</Text>
+                    <Text style={styles.buttonText} onPress={() => navigation.navigate('HomeForm')}>Login</Text>
                 </TouchableOpacity>
                 <Text style={styles.registerText}>
                     Belum memiliki akun?{' '}
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     input: {
         borderWidth: 1,
         color: 'black',
-        borderColor: '#ccc',
+        borderColor: 'black',
         borderRadius: 5,
         width: 200,
         height: 40,
