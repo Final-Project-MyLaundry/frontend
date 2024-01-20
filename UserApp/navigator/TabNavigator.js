@@ -5,6 +5,7 @@ import PesananScreen from '../screens/PesananScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import HomeScreen from '../screens/HomeScreen';
 import LogoutButton from '../src/components/LogoutButton';
+import { Image } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
@@ -23,7 +24,7 @@ export default function TabNavigator() {
                         iconName = 'person';
                     }
 
-                    return <Ionicons name={iconName} size={size} color={focused ? 'red' : color} />;
+                    return <Ionicons name={iconName} size={size} color={focused ? '#0C94D2' : color} />;
                 },
                 tabBarLabel: () => null,
             })}
@@ -35,9 +36,18 @@ export default function TabNavigator() {
             }}
             tabBarActiveTintColor="black"
         >
-            <Tab.Screen name="HomeScreen" component={HomeScreen} options={{ headerTitle: "Home" }} />
+            <Tab.Screen name="HomeScreen" component={HomeScreen}
+                options={{
+                    headerTitle: () => (
+                        <Image
+                            source={require('../assets/mylaundry.png')}
+                            style={{ width: 120, height: 30, marginTop: 15, marginRight: 300 }}
+                        />
+                    ),
+                }}
+            />
             <Tab.Screen name="Pesanan" component={PesananScreen} />
-            <Tab.Screen name="Profile" component={ProfileScreen} options={{headerRight: () => (<LogoutButton/>)}} />
+            <Tab.Screen name="Profile" component={ProfileScreen} options={{ headerRight: () => (<LogoutButton />) }} />
         </Tab.Navigator>
     );
 }
