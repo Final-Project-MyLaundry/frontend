@@ -4,7 +4,7 @@ import { View, TextInput, StyleSheet, Text, ImageBackground, TouchableOpacity } 
 const LoginForm = ({ navigation }) => {
     return (
         <ImageBackground
-            source={require('../../assets/imagelogin.png')}
+            source={require('../../assets/Login.png')}
             style={styles.background}
         >
             <View style={styles.container}>
@@ -30,7 +30,8 @@ const LoginForm = ({ navigation }) => {
                     <Text
                         style={[styles.registerLink, {color: '#0C94D2'}]}
                         onPress={() => navigation.navigate('RegisterForm')}
-                    >
+            
+                    />
                         Register
                     </Text>
                 </Text>
@@ -66,6 +67,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         width: 100,
         alignItems: 'center',
+        backgroundColor: '#0C94D2',
         borderWidth: 1,
         backgroundColor: '#0C94D2',
     },
@@ -74,11 +76,11 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },
     registerLink: {
-        color: 'red',
+        color: 'dark-red',
         textDecorationLine: 'underline',
     },
     buttonText: {
-        color: 'black',
+        color: 'white',
         fontSize: 16,
         fontWeight: 'bold',
     },
