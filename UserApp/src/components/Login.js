@@ -23,17 +23,16 @@ const LoginForm = ({ navigation }) => {
                 />
 
                 <TouchableOpacity style={styles.button}>
-                    <Text style={[styles.buttonText, {color: 'white'}]}>Login</Text>
+                    <Text style={[styles.buttonText, { color: 'white' }]}>Login</Text>
                 </TouchableOpacity>
                 <Text style={styles.registerText}>
                     Don't have an account?{' '}
                     <Text
-                        style={[styles.registerLink, {color: '#0C94D2'}]}
+                        style={[styles.registerLink, { color: '#0C94D2' }]}
                         onPress={() => navigation.navigate('RegisterForm')}
-            
+
                     />
-                        Register
-                    </Text>
+                    Register
                 </Text>
             </View>
         </ImageBackground>
