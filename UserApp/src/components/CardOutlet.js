@@ -1,27 +1,52 @@
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { LoginContext } from '../../context/LoginContext';
+
 
 const OutletCard = () => {
 
+    const { isLogin, URL } = useContext(LoginContext)
+    const [outlet, setOutlet] = useState([])
+
     const navigation = useNavigation()
 
+    const fetchData = async () => {
+        const response = await fetch(URL + '/outlets', {
+            method: "GET",
+            cache: "no-store",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + isLogin
+            }
+        })
+        const data = await response.json();
+        setOutlet(data)
+    }
+    useEffect(() => {
+        fetchData()
+    }, [])
+
     const handleCardPress = () => {
-        // Navigate to DetailOutletScreen when the card is pressed
         navigation.navigate('DetailOutletScreen');
     };
 
     return (
         <TouchableOpacity style={styles.smallCard} onPress={handleCardPress}>
-            <View style={styles.cardContainer}>
-                <View style={styles.imageContainer}>
-                    <Image source={{ uri: "https://i.pinimg.com/236x/05/03/76/050376e45a3479b9bde9d35e42965925.jpg" }} style={styles.outletImage} />
-                </View>
-                <View style={styles.textContainer}>
-                    <Text style={styles.outletName}>Laundry wahyu</Text>
-                    <Text style={styles.outletAddress}>123 Main Street</Text>
-                </View>
-            </View>
+            {outlet.map((outlet) => {
+                return (
+                    <View style={styles.cardContainer}>
+                        <View style={styles.imageContainer}>
+                            <Image source={{ uri: "https://i.pinimg.com/236x/05/03/76/050376e45a3479b9bde9d35e42965925.jpg" }} style={styles.outletImage} />
+                        </View>
+                        <View style={styles.textContainer}>
+                            <Text style={styles.outletName}>{outlet.name}</Text>
+                            <Text style={styles.outletAddress}>{outlet.address.street}</Text>
+                        </View>
+                    </View>
+
+                )
+            })}
         </TouchableOpacity>
     );
 };
