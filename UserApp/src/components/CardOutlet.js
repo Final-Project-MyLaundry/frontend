@@ -1,18 +1,20 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 
 const OutletCard = () => {
 
     return (
-        <View style={styles.cardContainer}>
-            <View style={styles.imageContainer}>
-                <Image source={{ uri: "https://i.pinimg.com/236x/05/03/76/050376e45a3479b9bde9d35e42965925.jpg" }} style={styles.outletImage} />
+        <TouchableOpacity style={styles.smallCard}>
+            <View style={styles.cardContainer}>
+                <View style={styles.imageContainer}>
+                    <Image source={{ uri: "https://i.pinimg.com/236x/05/03/76/050376e45a3479b9bde9d35e42965925.jpg" }} style={styles.outletImage} />
+                </View>
+                <View style={styles.textContainer}>
+                    <Text style={styles.outletName}>Laundry wahyu</Text>
+                    <Text style={styles.outletAddress}>Jl. Tanah Kusir</Text>
+                </View>
             </View>
-            <View style={styles.textContainer}>
-                <Text style={styles.outletName}>Laundry wahyu</Text>
-                <Text style={styles.outletAddress}>Jl. Tanah Kusir</Text>
-            </View>
-        </View>
+        </TouchableOpacity>
     );
 };
 
@@ -44,6 +46,14 @@ const styles = StyleSheet.create({
     },
     outletAddress: {
         fontSize: 14,
+    },
+    smallCard: {
+        width: '100%',
+        borderRadius: 8,
+        elevation: 3,
+        marginHorizontal: "1%",
+        marginTop: 8,
+        alignItems: 'center',
     },
 });
 
