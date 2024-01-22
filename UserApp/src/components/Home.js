@@ -1,15 +1,36 @@
 import { StyleSheet, Text, View, TouchableOpacity, ImageBackground, Image, ScrollView } from 'react-native';
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import OutletCard from './CardOutlet';
 import { useNavigation } from '@react-navigation/core';
+import { LoginContext } from '../../context/LoginContext';
 
-const HomeForm = () => {
+export default function HomeForm()  {
+
+    const { isLogin, URL } = useContext(LoginContext)
+    const [user, setUser] = useState([])
+
+    const fetchData = async () => {
+        const response = await fetch(URL + '/users/provider', {
+            method: "GET",
+            cache: "no-store",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + isLogin
+            }
+        })
+        const data = await response.json();
+        console.log(data);
+        setUser(data)
+    }
+    useEffect(() => {
+        fetchData()
+    }, [])
+
 
     const navigation = useNavigation()
 
     const handleCardPress = () => {
-        // Navigate to DetailOutletScreen when the card is pressed
         navigation.navigate('DetailOutletScreen');
     };
 
@@ -24,8 +45,8 @@ const HomeForm = () => {
                             style={styles.logoImage}
                         />
                     </View>
-                        <Text style={styles.userName}>Bambang</Text>
-                    <Text style={styles.cardTitle}>Saldo: Rp 1.000.000 </Text>
+                        <Text style={styles.userName}>{user.name}</Text>
+                    <Text style={styles.cardTitle}>Saldo: Rp. {user.saldo}</Text>
                     <TouchableOpacity style={styles.addButton}>
                         <Text style={styles.addButtonText}>Add Saldo</Text>
                     </TouchableOpacity>
@@ -103,16 +124,12 @@ const HomeForm = () => {
 
                 <View>
                     <OutletCard />
-                    <OutletCard />
-                    <OutletCard />
-                    <OutletCard />
                 </View>
             </View>
         </ScrollView>
     );
 };
 
-export default HomeForm;
 
 const styles = StyleSheet.create({
     scrollViewContainer: {
