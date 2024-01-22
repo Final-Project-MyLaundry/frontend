@@ -28,10 +28,11 @@ const LoginForm = ({ navigation }) => {
                 <Text style={styles.registerText}>
                     Don't have an account?{' '}
                     <Text
-                        style={[styles.registerLink, { color: '#0C94D2' }]}
+                        style={styles.registerLink}
                         onPress={() => navigation.navigate('RegisterForm')}
-                    />
+                    >
                     Register
+                    </Text>
                 </Text>
             </View>
         </ImageBackground>
