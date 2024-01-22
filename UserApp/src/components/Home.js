@@ -108,13 +108,13 @@ export default function HomeForm()  {
                         </View>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.smallCard}>
+                    <TouchableOpacity style={styles.smallCard} onPress={() => setFilter('')}>
                         <View style={styles.cardContent}>
                             <Image
                                 source={require('../../assets/dress.png')}
                                 style={styles.smallCardImage}
                             />
-                            <Text style={[styles.smallCardTitle, { color: '#FFFFFF', marginTop: 8 }]}>VIP</Text>
+                            <Text style={[styles.smallCardTitle, { color: '#FFFFFF', marginTop: 8 }]}>All</Text>
                         </View>
                     </TouchableOpacity>
                 </View>
