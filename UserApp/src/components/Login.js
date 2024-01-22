@@ -23,14 +23,13 @@ const LoginForm = ({ navigation }) => {
                 />
 
                 <TouchableOpacity style={styles.button}>
-                    <Text style={[styles.buttonText, { color: 'white' }]}>Login</Text>
+                    <Text style={[styles.buttonText, { color: 'white' }]}>Sign Up</Text>
                 </TouchableOpacity>
                 <Text style={styles.registerText}>
                     Don't have an account?{' '}
                     <Text
                         style={[styles.registerLink, { color: '#0C94D2' }]}
                         onPress={() => navigation.navigate('RegisterForm')}
-
                     />
                     Register
                 </Text>
@@ -68,7 +67,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#0C94D2',
         borderWidth: 1,
-        backgroundColor: '#0C94D2',
+        borderColor: 'black',
     },
     registerText: {
         color: 'black',
