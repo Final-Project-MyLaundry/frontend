@@ -2,8 +2,17 @@ import { StyleSheet, Text, View, TouchableOpacity, ImageBackground, Image, Scrol
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import OutletCard from './CardOutlet';
+import { useNavigation } from '@react-navigation/core';
 
-const HomeForm = ({ navigation }) => {
+const HomeForm = () => {
+
+    const navigation = useNavigation()
+
+    const handleCardPress = () => {
+        // Navigate to DetailOutletScreen when the card is pressed
+        navigation.navigate('DetailOutletScreen');
+    };
+
     return (
         <ScrollView contentContainerStyle={styles.scrollViewContainer}>
             <View style={styles.container}>

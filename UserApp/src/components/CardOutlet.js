@@ -1,10 +1,18 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 
 const OutletCard = () => {
 
+    const navigation = useNavigation()
+
+    const handleCardPress = () => {
+        // Navigate to DetailOutletScreen when the card is pressed
+        navigation.navigate('DetailOutletScreen');
+    };
+
     return (
-        <TouchableOpacity style={styles.smallCard}>
+        <TouchableOpacity style={styles.smallCard} onPress={handleCardPress}>
             <View style={styles.cardContainer}>
                 <View style={styles.imageContainer}>
                     <Image source={{ uri: "https://i.pinimg.com/236x/05/03/76/050376e45a3479b9bde9d35e42965925.jpg" }} style={styles.outletImage} />
