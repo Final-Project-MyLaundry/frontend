@@ -27,27 +27,29 @@ const OutletCard = () => {
         fetchData()
     }, [])
 
-    const handleCardPress = () => {
-        navigation.navigate('DetailOutletScreen');
+    const handleCardPress = (id) => {
+        navigation.navigate('DetailOutletScreen', { id });
     };
 
     return (
-        <TouchableOpacity style={styles.smallCard} onPress={handleCardPress}>
+        <>
             {outlet.map((outlet) => {
                 return (
-                    <View style={styles.cardContainer}>
-                        <View style={styles.imageContainer}>
-                            <Image source={{ uri: "https://i.pinimg.com/236x/05/03/76/050376e45a3479b9bde9d35e42965925.jpg" }} style={styles.outletImage} />
+                    <TouchableOpacity style={styles.smallCard} onPress={() => handleCardPress(outlet._id)}>
+                        <View style={styles.cardContainer}>
+                            <View style={styles.imageContainer}>
+                                <Image source={{uri: outlet.image}} style={styles.outletImage} />
+                            </View>
+                            <View style={styles.textContainer}>
+                                <Text style={styles.outletName}>{outlet.name}</Text>
+                                <Text style={styles.outletAddress}>{outlet.address.street}</Text>
+                            </View>
                         </View>
-                        <View style={styles.textContainer}>
-                            <Text style={styles.outletName}>{outlet.name}</Text>
-                            <Text style={styles.outletAddress}>{outlet.address.street}</Text>
-                        </View>
-                    </View>
 
+                    </TouchableOpacity>
                 )
             })}
-        </TouchableOpacity>
+        </>
     );
 };
 
