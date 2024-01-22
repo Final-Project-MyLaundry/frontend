@@ -19,7 +19,7 @@ const OutletCard = () => {
                 </View>
                 <View style={styles.textContainer}>
                     <Text style={styles.outletName}>Laundry wahyu</Text>
-                    <Text style={styles.outletAddress}>Jl. Tanah Kusir</Text>
+                    <Text style={styles.outletAddress}>123 Main Street</Text>
                 </View>
             </View>
         </TouchableOpacity>
