@@ -1,7 +1,48 @@
-import React from 'react';
-import { View, TextInput, StyleSheet, Text, ImageBackground, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { useContext, useState } from 'react';
+import { View, TextInput, StyleSheet, Text, ImageBackground, TouchableOpacity, ToastAndroid } from 'react-native';
+import { LoginContext } from '../../context/LoginContext';
+import * as SecureStore from "expo-secure-store";
 
-const LoginForm = ({ navigation }) => {
+
+async function save(key, value) {
+    await SecureStore.setItemAsync(key, value);
+}
+
+export default function LoginForm() {
+
+    const navigation = useNavigation()
+
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+
+    const { setIsLogin, URL } = useContext(LoginContext)
+
+    const handleClick = async () => {
+        const response = await fetch(URL + '/users/login', {
+            method: "POST",
+            cache: "no-store",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                email,
+                password
+            })
+        })
+
+        const result = await response.json()
+
+        if (response.ok) {
+            await save("access_token", result.access_token)
+            setIsLogin(result.access_token)
+            ToastAndroid.showWithGravity('Success Login, Welcome to My Laundry!', ToastAndroid.LONG, ToastAndroid.TOP)
+        } else {
+            ToastAndroid.showWithGravity(result.message, ToastAndroid.LONG, ToastAndroid.TOP)
+        }
+    }
+
+
     return (
         <ImageBackground
             source={require('../../assets/Login.png')}
@@ -10,19 +51,21 @@ const LoginForm = ({ navigation }) => {
             <View style={styles.container}>
                 <TextInput
                     style={styles.input}
-                    placeholder="Username"
+                    placeholder="Email"
+                    onChangeText={setEmail}
                     placeholderTextColor="black"
                     keyboardType="email-address"
                     autoCapitalize="none"
                 />
                 <TextInput
                     style={styles.input}
+                    onChangeText={setPassword}
                     placeholder="Password"
                     placeholderTextColor="black"
                     secureTextEntry
                 />
 
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity style={styles.button} onPress={handleClick}>
                     <Text style={[styles.buttonText, { color: 'white' }]}>Sign Up</Text>
                 </TouchableOpacity>
                 <Text style={styles.registerText}>
@@ -31,13 +74,14 @@ const LoginForm = ({ navigation }) => {
                         style={styles.registerLink}
                         onPress={() => navigation.navigate('RegisterForm')}
                     >
-                    Register
+                        Register
                     </Text>
                 </Text>
             </View>
         </ImageBackground>
     );
-};
+}
+
 
 const styles = StyleSheet.create({
     container: {
@@ -85,4 +129,3 @@ const styles = StyleSheet.create({
     },
 });
 
-export default LoginForm;
