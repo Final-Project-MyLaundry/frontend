@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },
     registerLink: {
-        color: 'dark-red',
+        color: '#0C94D2',
         textDecorationLine: 'underline',
     },
     buttonText: {
