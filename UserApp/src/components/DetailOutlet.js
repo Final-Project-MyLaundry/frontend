@@ -5,8 +5,8 @@ export default function DetailOutlet() {
 
     const data = {
         _id: "65a8eb61cbca81fd2982c110",
-        name: "wahyu ragil",
-        email: "wahyu@gmail.com",
+        name: "james",
+        email: "james@gmail.com",
         password: "$2a$10$YwQOHyWZg/5OJsYRK7JtQejTvncBUDN0Tx8lmQqkbRUO//CzqyQku",
         address: {
             street: "Jln Tanah Kusir 4",
@@ -38,20 +38,31 @@ export default function DetailOutlet() {
                         name: "Service B",
                         "description": "Description B",
                         price: 30000
+                    },
+                    {
+                        name: "Service C",
+                        "description": "Description C",
+                        price: 40000
                     }
                 ],
                 reviews: [
                     {
                         "userId": 1,
-                        "username": "bambang",
+                        "username": "Bambang",
                         "rating": 4.5,
                         "review": "Great service!"
                     },
                     {
                         "userId": 2,
-                        "username": "asep",
+                        "username": "Asep",
                         "rating": 5,
                         "review": "Excellent experience!"
+                    },
+                    {
+                        "userId": 3,
+                        "username": "Maldini",
+                        "rating": 5,
+                        "review": "Excellent Discrod!"
                     }
                 ],
                 userId: "65a8eb61cbca81fd2982c110",
@@ -65,44 +76,65 @@ export default function DetailOutlet() {
 
     const navigation = useNavigation()
 
+    const renderService = ({ item }) => (
+        <View style={styles.serviceContainer}>
+            <Text>Name: {item.name}</Text>
+            <Text>Description: {item.description}</Text>
+            <Text>Price: Rp. {item.price}</Text>
+        </View>
+    );
+
+    const renderReview = ({ item }) => (
+        <View style={styles.reviewContainer}>
+            <Text>{item.username}</Text>
+            <Text>Rating: {item.rating}</Text>
+            <Text>Review: {item.review}</Text>
+        </View>
+    );
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.container}>
                 <View style={styles.content}>
                     <Image
-                        source={{ uri: data.outlets[0].image }} // Use the outlet's image URL
+                        source={{ uri: data.outlets[0].image }}
                         style={styles.outletImage}
                     />
-
                     <View style={styles.textContent}>
                         <Text style={styles.outletName}>{data.outlets[0].name}</Text>
                         <Text style={styles.outletAddress}>
-                            Alamat: {data.outlets[0].address.street}, {data.outlets[0].address.village},{' '}
+                            Alamat: {data.outlets[0].address.street},{' '}
+                            {data.outlets[0].address.village},{' '}
                             {data.outlets[0].address.district}, {data.outlets[0].address.city}
                         </Text>
                     </View>
                 </View>
 
                 <Text style={styles.sectionTitle}>Services :</Text>
-                {data.outlets[0].services.map((service) => (
-                    <View key={service.name} style={styles.serviceContainer}>
-                        <Text>Name: {service.name}</Text>
-                        <Text>Description: {service.description}</Text>
-                        <Text>Price: Rp. {service.price}</Text>
-                    </View>
-                ))}
+                <View>
+                    <FlatList
+                        data={data.outlets[0].services}
+                        renderItem={renderService}
+                        keyExtractor={(item) => item.name}
+                        initialNumToRender={3}
+                        maxToRenderPerBatch={3}
+                        windowSize={3}
+                    />
+                </View>
 
                 <Text style={styles.sectionTitle}>Reviews :</Text>
-                {data.outlets[0].reviews.map((review) => (
-                    <View key={review.userId} style={styles.reviewContainer}>
-                        <Text>Username: {review.username}</Text>
-                        <Text>Rating: {review.rating}</Text>
-                        <Text>Review: {review.review}</Text>
-                    </View>
-                ))}
+                <FlatList
+                    data={data.outlets[0].reviews}
+                    renderItem={renderReview}
+                    keyExtractor={(item) => item.userId.toString()}
+                    initialNumToRender={3}
+                    maxToRenderPerBatch={3}
+                    windowSize={3}
+                />
             </View>
         </SafeAreaView>
     );
+
 }
 
 const styles = StyleSheet.create({
@@ -142,21 +174,21 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         padding: 10,
         borderWidth: 1,
-        borderColor: '#D4D4D4',
+        borderColor: 'black',
         borderRadius: 8,
     },
     serviceContainer: {
         marginBottom: 15,
         padding: 10,
         borderWidth: 1,
-        borderColor: '#D4D4D4',
+        borderColor: 'black',
         borderRadius: 8,
     },
     reviewContainer: {
         marginBottom: 15,
         padding: 10,
         borderWidth: 1,
-        borderColor: '#D4D4D4',
+        borderColor: 'black',
         borderRadius: 8,
-    },
+    }
 });
