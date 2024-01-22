@@ -55,14 +55,23 @@ export default function Profile() {
                 <Text style={styles.title}>History Transaksi</Text>
                 {/*transaction history components here */}
                 {profile?.transactions?.length != 0 ? (
-                <View style={styles.transactionItem}>
-                    <Image source={require('../../assets/moneyy.png')} style={styles.outletImage} />
-                    <View style={styles.textContainer}>
-                        <Text style={styles.topUp}></Text>
-                    </View>
-                </View>
-                ): <><Text>You don't have transactions</Text></>
-            }
+                    <>
+                        {profile?.transactions?.map((el, i) => {
+                            return (
+                                <View style={styles.transactionItem} key={i}>
+                                    <Image source={require('../../assets/moneyy.png')} style={styles.outletImage} />
+                                    <View style={styles.textContainer}>
+                                        <Text style={styles.topUp}>{el.orderId}</Text>
+                                        <Text style={styles.topUp}>{el.description}</Text>
+                                        <Text style={styles.topUp}>{el.amount}</Text>
+                                        <Text style={styles.topUp}>{el.paymentType}</Text>
+                                    </View>
+                                </View>
+                            )
+                        })}
+                    </>
+                ) : <><Text>You don't have transactions</Text></>
+                }
             </View>
             <StatusBar style="auto" />
         </ScrollView>
