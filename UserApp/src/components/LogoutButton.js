@@ -3,8 +3,6 @@ import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 
 const LogoutButton = ({ navigation }) => {
     const handleLogout = () => {
-        // Logika logout di sini (jika perlu)
-        // Navigasi ke halaman home setelah logout
         navigation.navigate('LoginForm')
     };
 
@@ -24,7 +22,6 @@ const styles = StyleSheet.create({
         padding: 10,
         borderRadius: 5,
         alignItems: 'center',
-        marginTop: 16,
         marginRight: 16,
     },
     buttonText: {

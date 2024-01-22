@@ -15,7 +15,7 @@ const HomeForm = ({ navigation }) => {
                             style={styles.logoImage}
                         />
                     </View>
-                    <Text style={styles.userName}>Bambang</Text>
+                        <Text style={styles.userName}>Bambang</Text>
                     <Text style={styles.cardTitle}>Saldo: Rp 1.000.000 </Text>
                     <TouchableOpacity style={styles.addButton}>
                         <Text style={styles.addButtonText}>Add Saldo</Text>
