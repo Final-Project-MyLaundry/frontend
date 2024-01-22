@@ -1,7 +1,10 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 
-const LogoutButton = ({ navigation }) => {
+const LogoutButton = () => {
+
+    const navigation = useNavigation()
     const handleLogout = () => {
         navigation.navigate('LoginForm')
     };
