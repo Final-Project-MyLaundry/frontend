@@ -32,6 +32,9 @@ const HomeForm = () => {
                 </View>
 
                 {/* Card Layanan Kecil */}
+                <Text style={[styles.smallCardTitle, { color: 'black', marginTop: 8, marginBottom: 10, textAlign: 'left', width: '100%' }]}>
+                    Daftar Layanan
+                </Text>
                 <View style={styles.smallCardContainer}>
                     <TouchableOpacity style={styles.smallCard}>
                         <View style={styles.cardContent}>
