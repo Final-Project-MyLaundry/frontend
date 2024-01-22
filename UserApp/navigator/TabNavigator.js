@@ -10,6 +10,14 @@ import { Image } from 'react-native';
 const Tab = createBottomTabNavigator();
 
 export default function TabNavigator() {
+
+    const  headerTitle = () => (
+        <Image
+            source={require('../assets/mylaundry.png')}
+            style={{ width: 120, height: 30, marginLeft: -180, marginTop: 15 }}
+        />
+    )
+
     return (
         <Tab.Navigator
             screenOptions={({ route }) => ({
@@ -38,16 +46,13 @@ export default function TabNavigator() {
         >
             <Tab.Screen name="HomeScreen" component={HomeScreen}
                 options={{
-                    headerTitle: () => (
-                        <Image
-                            source={require('../assets/mylaundry.png')}
-                            style={{ width: 120, height: 30, marginTop: 15, marginRight: 300 }}
-                        />
-                    ),
+                   headerTitle: headerTitle
                 }}
             />
-            <Tab.Screen name="Pesanan" component={PesananScreen} />
-            <Tab.Screen name="Profile" component={ProfileScreen} options={{ headerRight: () => (<LogoutButton />) }} />
+            <Tab.Screen name="Pesanan" component={PesananScreen} options={{headerTitle: headerTitle}}/>
+            <Tab.Screen name="Profile" component={ProfileScreen} options={{ 
+                headerTitle: headerTitle,
+                headerRight: () => (<LogoutButton />) }} />
         </Tab.Navigator>
     );
 }

@@ -1,26 +1,44 @@
-import React from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Image } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+import { LoginContext } from '../../context/LoginContext';
 
-const Profile = ({ navigation }) => {
+export default function Profile() {
+
+    const { isLogin, URL } = useContext(LoginContext)
+    const [profile, setProfile] = useState([])
+    const fetchData = async () => {
+        const response = await fetch(URL + '/users/provider', {
+            method: "GET",
+            cache: "no-store",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + isLogin
+            }
+        })
+        const data = await response.json();
+        console.log(data);
+        setProfile(data)
+    }
+    useEffect(() => {
+        fetchData()
+    }, [])
+
+
     return (
         <ScrollView contentContainerStyle={styles.container}>
-            <Image
-                source={require('../../assets/logo.png')}
-                style={styles.logoImage}
-            />
             <View style={styles.profileCard}>
 
                 <View style={styles.profileActions}>
                     <View style={styles.userProfile}>
                         <View>
-                            <Image source={{ uri: "https://i.pinimg.com/236x/67/c3/d6/67c3d63e215e034e01d45c8256d720d3.jpg" }} style={styles.userImage} />
-                            <Text style={styles.userName}>John Doe</Text>
-                            <Text style={styles.userEmail}>john.doe@example.com</Text>
+                            <Image source={{ uri: "https://i.pinimg.com/236x/e8/7a/b0/e87ab0a15b2b65662020e614f7e05ef1.jpg" }} style={styles.userImage} />
+                            <Text style={styles.userName}>{profile.name}</Text>
+                            <Text style={styles.userEmail}>{profile.email}</Text>
                         </View>
                         <View style={styles.profileInfo}>
                             <Text style={styles.title}>Saldo</Text>
-                            <Text style={styles.balance}>Rp 1.000.000</Text>
+                            <Text style={styles.balance}>Rp. {profile.saldo}</Text>
                         </View>
                     </View>
                     <View style={styles.actionButtons}>
@@ -37,31 +55,20 @@ const Profile = ({ navigation }) => {
             <View style={styles.historyCard}>
                 <Text style={styles.title}>History Transaksi</Text>
                 {/*transaction history components here */}
+                {profile?.transactions?.length != 0 ? (
                 <View style={styles.transactionItem}>
                     <Image source={require('../../assets/moneyy.png')} style={styles.outletImage} />
                     <View style={styles.textContainer}>
-                        <Text style={styles.outletAddress}>Top Up Rp. 50.000</Text>
+                        <Text style={styles.topUp}></Text>
                     </View>
                 </View>
-                <View style={styles.transactionItem}>
-                    <Image source={require('../../assets/moneyy.png')} style={styles.outletImage} />
-                    <View style={styles.textContainer}>
-                        <Text style={styles.outletAddress}>Top Up Rp. 100.000</Text>
-                    </View>
-                </View>
-                <View style={styles.transactionItem}>
-                    <Image source={require('../../assets/moneyy.png')} style={styles.outletImage} />
-                    <View style={styles.textContainer}>
-                        <Text style={styles.outletAddress}>Top Up Rp. 50.000</Text>
-                    </View>
-                </View>
+                ): <><Text>You don't have transactions</Text></>
+            }
             </View>
             <StatusBar style="auto" />
         </ScrollView>
     );
 };
-
-export default Profile;
 
 const styles = StyleSheet.create({
     container: {
@@ -108,8 +115,8 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     userImage: {
-        width: 60,
-        height: 60,
+        width: 70,
+        height: 70,
     },
     userName: {
         fontSize: 16,
@@ -168,7 +175,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginBottom: 8,
     },
-    outletAddress: {
+    topUp: {
         fontSize: 14,
     },
 });
