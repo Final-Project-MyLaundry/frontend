@@ -1,37 +1,22 @@
-import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import * as SecureStore from "expo-secure-store"
+import { useNavigation } from '@react-navigation/native';
+import { useContext } from "react";
+import { LoginContext } from '../../context/LoginContext';
 
-const LogoutButton = () => {
+export default function LogoutButton(){
 
     const navigation = useNavigation()
-    const handleLogout = () => {
-        navigation.navigate('LoginForm')
-    };
+    const { setIsLogin } = useContext(LoginContext)
 
     return (
-        <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
-            <Text style={styles.buttonText}>Logout</Text>
+        <TouchableOpacity onPress={async () => {
+            await SecureStore.deleteItemAsync('access_token')
+            setIsLogin(false)
+        }}>
+            <Text style={{fontWeight: 'bold', color: 'red', marginRight: 15, marginBottom: -10}}>Logout</Text>
         </TouchableOpacity>
     );
 };
 
-const styles = StyleSheet.create({
-    logoutButton: {
-        position: 'absolute',
-        top: 0,
-        right: 0,
-        backgroundColor: 'white', 
-        padding: 10,
-        borderRadius: 5,
-        alignItems: 'center',
-        marginRight: 16,
-    },
-    buttonText: {
-        color: 'red',
-        fontWeight: 'bold',
-        fontSize: 16,
-    },
-});
-
-export default LogoutButton;
