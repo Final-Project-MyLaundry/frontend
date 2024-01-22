@@ -35,7 +35,7 @@ const RegisterForm = ({ navigation }) => {
                 <Text style={styles.registerText}>
                     Already have a account?{' '}
                     <Text
-                        style={[styles.registerLink, { color: '#0C94D2' }]}
+                        style={[styles.registerLink, { color: '#0C94D2', textDecorationLine: 'underline' }]}
                         onPress={() => navigation.navigate('LoginForm')}
                     >
                         Login
