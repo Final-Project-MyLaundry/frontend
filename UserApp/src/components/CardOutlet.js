@@ -4,7 +4,7 @@ import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { LoginContext } from '../../context/LoginContext';
 
 
-const OutletCard = () => {
+const OutletCard = ({ filter }) => {
 
     const { isLogin, URL } = useContext(LoginContext)
     const [outlet, setOutlet] = useState([])
@@ -12,20 +12,35 @@ const OutletCard = () => {
     const navigation = useNavigation()
 
     const fetchData = async () => {
-        const response = await fetch(URL + '/outlets', {
-            method: "GET",
-            cache: "no-store",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Bearer " + isLogin
-            }
-        })
-        const data = await response.json();
-        setOutlet(data)
+        if (filter) {
+            console.log(filter);
+            const response = await fetch(URL + '/outlets/get', {
+                method: "POST",
+                cache: "no-store",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + isLogin
+                },
+                body: JSON.stringify({filter})
+            })
+            const data = await response.json();
+            setOutlet(data)
+        } else {
+            const response = await fetch(URL + '/outlets/get', {
+                method: "POST",
+                cache: "no-store",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + isLogin
+                }
+            })
+            const data = await response.json();
+            setOutlet(data)
+        }
     }
     useEffect(() => {
         fetchData()
-    }, [])
+    }, [filter])
 
     const handleCardPress = (id) => {
         navigation.navigate('DetailOutletScreen', { id });
@@ -38,7 +53,7 @@ const OutletCard = () => {
                     <TouchableOpacity style={styles.smallCard} onPress={() => handleCardPress(outlet._id)}>
                         <View style={styles.cardContainer}>
                             <View style={styles.imageContainer}>
-                                <Image source={{uri: outlet.image}} style={styles.outletImage} />
+                                <Image source={{ uri: outlet.image }} style={styles.outletImage} />
                             </View>
                             <View style={styles.textContainer}>
                                 <Text style={styles.outletName}>{outlet.name}</Text>
