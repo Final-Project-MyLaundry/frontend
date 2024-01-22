@@ -9,6 +9,7 @@ export default function HomeForm()  {
 
     const { isLogin, URL } = useContext(LoginContext)
     const [user, setUser] = useState([])
+    const [filter, setFilter] = useState("")
 
     const fetchData = async () => {
         const response = await fetch(URL + '/users/provider', {
@@ -67,17 +68,17 @@ export default function HomeForm()  {
                     </TouchableOpacity>
 
 
-                    <TouchableOpacity style={styles.smallCard}>
+                    <TouchableOpacity style={styles.smallCard} onPress={() => setFilter('reguler')}>
                         <View style={styles.cardContent}>
                             <Image
                                 source={require('../../assets/kiloan.png')}
                                 style={styles.smallCardImage}
                             />
-                            <Text style={[styles.smallCardTitle, { color: '#FFFFFF', marginTop: 8 }]}>Kiloan</Text>
+                            <Text style={[styles.smallCardTitle, { color: '#FFFFFF', marginTop: 8 }]}>Reguler</Text>
                         </View>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.smallCard}>
+                    <TouchableOpacity style={styles.smallCard} onPress={() => setFilter('express')}>
                         <View style={styles.cardContent}>
                             <Image
                                 source={require('../../assets/express.png')}
@@ -87,7 +88,7 @@ export default function HomeForm()  {
                         </View>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.smallCard}>
+                    <TouchableOpacity style={styles.smallCard} onPress={() => setFilter('setrika')}>
                         <View style={styles.cardContent}>
                             <Image
                                 source={require('../../assets/setrika.png')}
@@ -97,13 +98,13 @@ export default function HomeForm()  {
                         </View>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.smallCard}>
+                    <TouchableOpacity style={styles.smallCard} onPress={() => setFilter('cuci')}>
                         <View style={styles.cardContent}>
                             <Image
                                 source={require('../../assets/cuci.png')}
                                 style={styles.smallCardImage}
                             />
-                            <Text style={[styles.smallCardTitle, { color: '#FFFFFF', marginTop: 8 }]}>Cuci</Text>
+                            <Text style={[styles.smallCardTitle, { color: '#FFFFFF', marginTop: 8 }]}>Cuci Lipat</Text>
                         </View>
                     </TouchableOpacity>
 
@@ -122,7 +123,7 @@ export default function HomeForm()  {
                 </Text>
 
                 <View>
-                    <OutletCard />
+                    <OutletCard filter={filter} />
                 </View>
             </View>
         </ScrollView>
