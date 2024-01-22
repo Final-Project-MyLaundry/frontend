@@ -1,6 +1,6 @@
 import DetailOutlet from "../src/components/DetailOutlet";
 
-export function DetailScreen({navigation}) {
+export function DetailScreen() {
     return (
         <DetailOutlet />
     )

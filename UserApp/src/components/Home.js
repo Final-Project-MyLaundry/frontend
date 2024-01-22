@@ -20,7 +20,6 @@ export default function HomeForm()  {
             }
         })
         const data = await response.json();
-        console.log(data);
         setUser(data)
     }
     useEffect(() => {
