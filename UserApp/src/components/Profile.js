@@ -60,11 +60,10 @@ export default function Profile() {
                             return (
                                 <View style={styles.transactionItem} key={i}>
                                     <Image source={require('../../assets/moneyy.png')} style={styles.outletImage} />
-                                    <View style={styles.textContainer}>
-                                        <Text style={styles.topUp}>{el.orderId}</Text>
-                                        <Text style={styles.topUp}>{el.description}</Text>
-                                        <Text style={styles.topUp}>{el.amount}</Text>
-                                        <Text style={styles.topUp}>{el.paymentType}</Text>
+                                    <View style={styles.orderText}>
+                                        <Text style={{ fontWeight: 'bold', fontSize: 14 }}>{el.orderId}</Text>
+                                        <Text>Amount : Rp. {el.amount}</Text>
+                                        <Text>Description :<Text style={{ color: el.description == 'IN' ? 'green' : 'red', fontWeight: 'bold' }}> {el.description}</Text></Text>
                                     </View>
                                 </View>
                             )
@@ -83,6 +82,10 @@ const styles = StyleSheet.create({
         flexGrow: 1,
         backgroundColor: '#fff',
         padding: 16,
+    },
+    orderText: {
+        fontSize: 12,
+        marginRight: 40,
     },
     logoImage: {
         width: 70,
@@ -185,5 +188,7 @@ const styles = StyleSheet.create({
     },
     topUp: {
         fontSize: 14,
+        fontWeight: 'bold',
+
     },
 });

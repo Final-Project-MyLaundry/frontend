@@ -61,7 +61,7 @@ export default function DetailOutlet() {
                         style={styles.outletImage}
                     />
                     <View style={styles.textContent}>
-                        <Text style={styles.outletName}>{data.name}</Text>
+                        <Text style={styles.outletName}>{data[0]?.name}</Text>
                         <Text style={styles.outletAddress}>
                             Alamat: {data[0]?.address?.street},{' '}
                             {data[0]?.address?.village},{' '}
@@ -75,7 +75,7 @@ export default function DetailOutlet() {
                     <FlatList
                         data={data[0]?.services}
                         renderItem={renderService}
-                        keyExtractor={(item) => item.name}
+                        keyExtractor={(item, i) => i}
                         initialNumToRender={3}
                         maxToRenderPerBatch={3}
                         windowSize={3}
@@ -86,7 +86,7 @@ export default function DetailOutlet() {
                 <FlatList
                     data={data[0]?.reviews}
                     renderItem={renderReview}
-                    keyExtractor={(item) => item.userId.toString()}
+                    keyExtractor={(item,i) => i}
                     initialNumToRender={3}
                     maxToRenderPerBatch={3}
                     windowSize={3}
