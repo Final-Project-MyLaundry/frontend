@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import { useContext, useState } from 'react';
-import { View, TextInput, StyleSheet, Text, ImageBackground, TouchableOpacity, ToastAndroid } from 'react-native';
+import { View, TextInput, StyleSheet, Text, ImageBackground, TouchableOpacity } from 'react-native';
 import { LoginContext } from '../../context/LoginContext';
 import * as SecureStore from "expo-secure-store";
 
@@ -36,9 +36,10 @@ export default function LoginForm() {
         if (response.ok) {
             await save("access_token", result.access_token)
             setIsLogin(result.access_token)
-            ToastAndroid.showWithGravity('Success Login, Welcome to My Laundry!', ToastAndroid.LONG, ToastAndroid.TOP)
+            // ToastAndroid.showWithGravity('Success Login, Welcome to My Laundry!', ToastAndroid.LONG, ToastAndroid.TOP)
         } else {
-            ToastAndroid.showWithGravity(result.message, ToastAndroid.LONG, ToastAndroid.TOP)
+            console.log("error");
+            // ToastAndroid.showWithGravity(result.message, ToastAndroid.LONG, ToastAndroid.TOP)
         }
     }
 
