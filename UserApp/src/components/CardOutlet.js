@@ -48,9 +48,9 @@ const OutletCard = ({ filter }) => {
 
     return (
         <>
-            {outlet.map((outlet) => {
+            {outlet.map((outlet, i) => {
                 return (
-                    <TouchableOpacity style={styles.smallCard} onPress={() => handleCardPress(outlet._id)}>
+                    <TouchableOpacity style={styles.smallCard} onPress={() => handleCardPress(outlet._id)} key={i}>
                         <View style={styles.cardContainer}>
                             <View style={styles.imageContainer}>
                                 <Image source={{ uri: outlet.image }} style={styles.outletImage} />
