@@ -2,8 +2,11 @@ import { useContext, useEffect, useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Image } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { LoginContext } from '../../context/LoginContext';
+import { useNavigation } from '@react-navigation/native';
 
 export default function Profile() {
+
+    const navigation = useNavigation()
 
     const { isLogin, URL } = useContext(LoginContext)
     const [profile, setProfile] = useState([])
@@ -19,9 +22,14 @@ export default function Profile() {
         const data = await response.json();
         setProfile(data)
     }
+
     useEffect(() => {
         fetchData()
-    }, [])
+    }, [profile])
+
+    const handleEditPress = () => {
+        navigation.navigate('UpdateProfileScreen');
+    };
 
 
     return (
@@ -44,7 +52,7 @@ export default function Profile() {
                         <TouchableOpacity style={styles.topUpButton}>
                             <Text style={styles.buttonText}>Top Up</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.editButton}>
+                        <TouchableOpacity style={styles.editButton} onPress={handleEditPress}>
                             <Text style={styles.buttonText}>Edit</Text>
                         </TouchableOpacity>
                     </View>
