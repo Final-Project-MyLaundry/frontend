@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import { useContext, useEffect, useState } from 'react';
-import { Image, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, ToastAndroid, TouchableOpacity, View } from 'react-native';
+import { Image, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { LoginContext } from '../../context/LoginContext';
 
 
@@ -36,18 +36,17 @@ export default function UpdateProfile() {
         setProfile(data)
     }
     const handleOnClick = async () => {
-        const { name, email, address, phone} = profile
-        const response = await fetch(URL + '/users', {
+              const response = await fetch(URL + '/users', {
             method: "PUT",
             cache: "no-store",
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": "Bearer " + isLogin
             },
-            body: JSON.stringify({ name, email, address, phone })
+            body: JSON.stringify(profile)
         })
         if (response.ok) {
-            ToastAndroid.showWithGravity('Succes Update Profile!', ToastAndroid.LONG, ToastAndroid.TOP)
+            // ToastAndroid.showWithGravity('Succes Update Profile!', ToastAndroid.LONG, ToastAndroid.TOP)
             navigation.navigate("Profile")
         }
     }

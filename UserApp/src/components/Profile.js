@@ -3,6 +3,9 @@ import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Image } from 'rea
 import { StatusBar } from 'expo-status-bar';
 import { LoginContext } from '../../context/LoginContext';
 import { useNavigation } from '@react-navigation/native';
+import * as React from 'react';
+import { WebView } from 'react-native-webview';
+import MyWebViewButton from './WebView';
 
 export default function Profile() {
 
@@ -31,6 +34,13 @@ export default function Profile() {
         navigation.navigate('UpdateProfileScreen');
     };
 
+    const myWebComponent = async () => {
+        console.log('tertekan');
+        <WebView
+            source={{ uri: 'https://reactnative.dev' }} style={{flex: 1}}
+        />
+    }
+
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
@@ -49,7 +59,7 @@ export default function Profile() {
                         </View>
                     </View>
                     <View style={styles.actionButtons}>
-                        <TouchableOpacity style={styles.topUpButton}>
+                        <TouchableOpacity style={styles.topUpButton} onPress={() => navigation.navigate('WebViewScreen')}>
                             <Text style={styles.buttonText}>Top Up</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.editButton} onPress={handleEditPress}>

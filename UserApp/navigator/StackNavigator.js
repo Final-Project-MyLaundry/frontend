@@ -7,6 +7,8 @@ import { useContext } from "react";
 import { LoginContext } from "../context/LoginContext";
 import UpdateProfile from "../src/components/UpdateProfile";
 import Profile from "../src/components/Profile";
+import WebView from "../src/components/WebView";
+import WebViewScreen from "../screens/WebViewScreen";
 
 
 const Stack = createNativeStackNavigator();
@@ -25,6 +27,7 @@ export default function StackNavigator() {
                         <Stack.Screen name="Home" component={TabNavigator} />
                         <Stack.Screen name="DetailOutletScreen" component={DetailOutlet} />
                         <Stack.Screen name="UpdateProfileScreen" component={UpdateProfile} />
+                        <Stack.Screen name="WebViewScreen" component={WebViewScreen} />
                     </>
                 ) : (
                     <>

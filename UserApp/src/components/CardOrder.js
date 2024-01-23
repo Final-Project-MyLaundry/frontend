@@ -5,7 +5,6 @@ import { LoginContext } from "../../context/LoginContext";
 export default function CardOrder() {
     const { isLogin, URL } = useContext(LoginContext)
     const [order, setOrder] = useState([])
-
     const fetchData = async () => {
         const response = await fetch(URL + '/orders/customer', {
             method: "GET",
@@ -23,7 +22,6 @@ export default function CardOrder() {
     }, [])
 
     const content = ({ item, index }) => (
-        <>
             <TouchableOpacity key={index}>
                 <View style={styles.cardOrder} >
                     <Image
@@ -38,7 +36,6 @@ export default function CardOrder() {
                     </View>
                 </View>
             </TouchableOpacity>
-        </>
     );
 
     return (
@@ -46,7 +43,7 @@ export default function CardOrder() {
             <FlatList
                 data={order}
                 renderItem={content}
-                keyExtractor={item => item.orderId}
+                keyExtractor={item => item._id}
             />
         </SafeAreaView>
     );
