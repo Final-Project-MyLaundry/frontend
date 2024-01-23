@@ -5,7 +5,7 @@ import OutletCard from './CardOutlet';
 import { useNavigation } from '@react-navigation/core';
 import { LoginContext } from '../../context/LoginContext';
 
-export default function HomeForm()  {
+export default function HomeForm() {
 
     const { isLogin, URL } = useContext(LoginContext)
     const [user, setUser] = useState([])
@@ -45,7 +45,7 @@ export default function HomeForm()  {
                             style={styles.logoImage}
                         />
                     </View>
-                        <Text style={styles.userName}>{user.name}</Text>
+                    <Text style={styles.userName}>{user.name}</Text>
                     <Text style={styles.cardTitle}>Saldo: Rp. {user.saldo}</Text>
                     <TouchableOpacity style={styles.addButton}>
                         <Text style={styles.addButtonText}>Add Saldo</Text>
@@ -57,16 +57,15 @@ export default function HomeForm()  {
                     Daftar Layanan
                 </Text>
                 <View style={styles.smallCardContainer}>
-                    <TouchableOpacity style={styles.smallCard}>
+                    <TouchableOpacity style={styles.smallCard} >
                         <View style={styles.cardContent}>
                             <Image
                                 source={require('../../assets/peta.png')}
                                 style={[styles.smallCardImage, { width: 100 }]}
                             />
-                            <Text style={[styles.smallCardTitle, { color: '#FFFFFF', marginTop: 8 }]}>Terdekat</Text>
+                            {filter == 'terdekat' ? <Text style={[styles.smallCardTitle, { color: '#050400', marginTop: 8 }]}>Terdekat</Text> : <Text style={[styles.smallCardTitle, { color: '#FFFFFF', marginTop: 8 }]}>Terdekat</Text>}
                         </View>
                     </TouchableOpacity>
-
 
                     <TouchableOpacity style={styles.smallCard} onPress={() => setFilter('reguler')}>
                         <View style={styles.cardContent}>
@@ -74,7 +73,7 @@ export default function HomeForm()  {
                                 source={require('../../assets/kiloan.png')}
                                 style={styles.smallCardImage}
                             />
-                            <Text style={[styles.smallCardTitle, { color: '#FFFFFF', marginTop: 8 }]}>Reguler</Text>
+                            {filter == 'reguler' ? <Text style={[styles.smallCardTitle, { color: '#050400', marginTop: 8 }]}>Reguler</Text> : <Text style={[styles.smallCardTitle, { color: '#FFFFFF', marginTop: 8 }]}>Reguler</Text>}
                         </View>
                     </TouchableOpacity>
 
@@ -84,7 +83,8 @@ export default function HomeForm()  {
                                 source={require('../../assets/express.png')}
                                 style={styles.smallCardImage}
                             />
-                            <Text style={[styles.smallCardTitle, { color: '#FFFFFF', marginTop: 8 }]}>Express</Text>
+                            {filter == 'express' ? <Text style={[styles.smallCardTitle, { color: '#050400', marginTop: 8 }]}>Express</Text> : <Text style={[styles.smallCardTitle, { color: '#FFFFFF', marginTop: 8 }]}>Express</Text>}
+
                         </View>
                     </TouchableOpacity>
 
@@ -94,7 +94,7 @@ export default function HomeForm()  {
                                 source={require('../../assets/setrika.png')}
                                 style={styles.smallCardImage}
                             />
-                            <Text style={[styles.smallCardTitle, { color: '#FFFFFF', marginTop: 8 }]}>Setrika</Text>
+                            {filter == 'setrika' ? <Text style={[styles.smallCardTitle, { color: '#050400', marginTop: 8 }]}>Setrika</Text> : <Text style={[styles.smallCardTitle, { color: '#FFFFFF', marginTop: 8 }]}>Setrika</Text>}
                         </View>
                     </TouchableOpacity>
 
@@ -104,7 +104,8 @@ export default function HomeForm()  {
                                 source={require('../../assets/cuci.png')}
                                 style={styles.smallCardImage}
                             />
-                            <Text style={[styles.smallCardTitle, { color: '#FFFFFF', marginTop: 8 }]}>Cuci Lipat</Text>
+                            {filter == 'cuci' ? <Text style={[styles.smallCardTitle, { color: '#050400', marginTop: 8 }]}>Cuci Lipat</Text> : <Text style={[styles.smallCardTitle, { color: '#FFFFFF', marginTop: 8 }]}>Cuci Lipat</Text>}
+
                         </View>
                     </TouchableOpacity>
 
@@ -114,7 +115,8 @@ export default function HomeForm()  {
                                 source={require('../../assets/dress.png')}
                                 style={styles.smallCardImage}
                             />
-                            <Text style={[styles.smallCardTitle, { color: '#FFFFFF', marginTop: 8 }]}>All</Text>
+                            {filter == '' ? <Text style={[styles.smallCardTitle, { color: '#050400', marginTop: 8 }]}>All</Text> : <Text style={[styles.smallCardTitle, { color: '#FFFFFF', marginTop: 8 }]}>All</Text>}
+
                         </View>
                     </TouchableOpacity>
                 </View>
