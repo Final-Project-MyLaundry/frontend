@@ -1,5 +1,4 @@
 import { FlatList, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import { useContext, useEffect, useState } from "react";
 import { LoginContext } from "../../context/LoginContext";
 
@@ -17,7 +16,6 @@ export default function CardOrder() {
             }
         })
         const data = await response.json();
-        console.log(data);
         setOrder(data)
     }
     useEffect(() => {
