@@ -29,7 +29,7 @@ export default function StackNavigator() {
                         <Stack.Screen name="UpdateProfileScreen" component={UpdateProfile} />
                         <Stack.Screen name="TopUpScreen" component={TopUpSaldo} />
                         <Stack.Screen name="WebViewScreen" component={WebViewScreen} />
-                        {/* <Stack.Screen name="DetailOrder" component={DetailOrderScreen} options={{ headerShown: true }} /> */}
+                        <Stack.Screen name="DetailOrder" component={DetailOrderScreen} options={{ headerShown: true }} />
                     </>
                 ) : (
                     <>
