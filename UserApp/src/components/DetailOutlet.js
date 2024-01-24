@@ -1,30 +1,27 @@
 
 import { Image, SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
+import CardServices from "./cardService";
 
 
 
 
 export default function DetailOutlet({outlet}) {
-    console.log(outlet);
-
     return (
-        <SafeAreaView style={styles.container}>
-            <ScrollView>
+        <SafeAreaView>
+            <CardServices services={outlet[0]?.services} />
                 <View style={styles.content}>
                     <View style={styles.positionUserImage} >
                         <Image
-                            source={require('../../assets/express.png')}
-                            style={{ width: 100, height: 95 }}
+                           source={{ uri: outlet[0]?.image }}
+                            style={{ width: 100, height: 95, borderRadius: 15 }}
                         />
                     </View>
-                    <View style={styles.textContent}>
+                    {/* <View style={styles.textContent}>
                         <Text style={styles.welcome}>{outlet[0]?.name} </Text>
                         <Text>{outlet[0]?.address.street} {outlet[0]?.address.village} {outlet[0]?.address.district} {outlet[0]?.address.city}</Text>
 
-                    </View>
+                    </View> */}
                 </View>
-                <Text style={{ fontWeight: 'bold', borderBottomWidth: 1, paddingBottom: 5 }}>Services :</Text>
-            </ScrollView>
         </SafeAreaView>
     );
 }
@@ -40,6 +37,7 @@ const styles = StyleSheet.create({
     content: {
         height: "auto",
         flexDirection: 'row',
+        marginTop: 10,
     },
     positionUserImage: {
         flex: 1,

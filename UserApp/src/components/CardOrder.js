@@ -1,8 +1,10 @@
 import { FlatList, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View, CheckBox } from "react-native";
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import { LoginContext } from "../../context/LoginContext";
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 
 export default function CardOrder() {
+    const navigation = useNavigation()
     const { isLogin, URL } = useContext(LoginContext)
     const [order, setOrder] = useState([])
     const fetchData = async () => {
@@ -15,29 +17,33 @@ export default function CardOrder() {
                     "Authorization": "Bearer " + isLogin
                 }
             })
-            const data = await response.json();
-            setOrder(data)
+            
+            if (response.ok) {
+                const data = await response.json();
+                setOrder(data)
+            }
         } catch (error) {
             console.log(error , "dari card order");
         }
     }
 
-
-    useEffect(() => {
-        fetchData()
-    }, [])
+    useFocusEffect(
+        useCallback(() => {
+            fetchData()
+        }, [order])
+      );
 
     const content = ({ item, index }) => (
-            <TouchableOpacity key={index}>
+            <TouchableOpacity key={index} onPress={() => navigation.navigate('DetailOrder', { id: item._id })}>
                 <View style={styles.cardOrder} >
                     <Image
                         source={require('../../assets/logo.png')}
                         style={{ width: 50, height: 50, marginTop: 5 }}
                     />
                     <View style={styles.orderText}>
-                        <Text style={{ fontWeight: 'bold', fontSize: 18 }}>Pesanan No : {index + 1}</Text>
+                        <Text style={{ fontWeight: 'bold', fontSize: 18 }}>Pesanan No : 45692{index + 1}</Text>
                         <Text>Amount : Rp. {item.totalAmount}</Text>
-                        <Text>Status  : <Text style={{ fontWeight : 'bold', color : '#de0a26'}}> {item.progress} </Text></Text>
+                        <Text>Status  : <Text style={{ fontWeight : 'bold', color : item.progress === 'Waiting' ? 'red' : 'green'}}> {item.progress} </Text></Text>
                         <Text>Payment : {item.statusPay}</Text>
                     </View>
                 </View>
