@@ -12,17 +12,23 @@ export default function HomeForm() {
     const [filter, setFilter] = useState("")
 
     const fetchData = async () => {
-        const response = await fetch(URL + '/users/provider', {
-            method: "GET",
-            cache: "no-store",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Bearer " + isLogin
-            }
-        })
-        const data = await response.json();
-        setUser(data)
+        try {
+            const response = await fetch(URL + '/users/provider', {
+                method: "GET",
+                cache: "no-store",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + isLogin
+                }
+            })
+            const data = await response.json();
+            setUser(data)
+
+        } catch (error) {
+            console.log(error, "dari home");
+        }
     }
+
     useEffect(() => {
         fetchData()
     }, [])
@@ -35,6 +41,7 @@ export default function HomeForm() {
     };
 
     return (
+
         <ScrollView contentContainerStyle={styles.scrollViewContainer}>
             <View style={styles.container}>
                 <View style={styles.cardContainer}>
@@ -45,9 +52,21 @@ export default function HomeForm() {
                             style={styles.logoImage}
                         />
                     </View>
+                </View>
+                <View style={{
+                    flexDirection: 'column',
+                    backgroundColor: '#fff',
+                    padding: 16,
+                    borderRadius: 8,
+                    elevation: 3,
+                    marginBottom: 16,
+                    width: "100%",
+                    borderBottomWidth: 1,
+                    borderColor: '#edeff0'
+                }}>
                     <Text style={styles.userName}>{user.name}</Text>
-                    <Text style={styles.cardTitle}>Saldo: Rp. {user.saldo}</Text>
-                    <TouchableOpacity style={styles.addButton}>
+                    <Text style={styles.cardTitle}>Saldo : Rp. {user.saldo}</Text>
+                    <TouchableOpacity style={styles.addButton} onPress={() => navigation.navigate('TopUpScreen')}>
                         <Text style={styles.addButtonText}>Add Saldo</Text>
                     </TouchableOpacity>
                 </View>

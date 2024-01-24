@@ -14,26 +14,31 @@ export default function RegisterForm() {
     const { URL } = useContext(LoginContext)
 
     const handleOnClick = async () => {
-        const response = await fetch(URL + '/users/register', {
-            method: "POST",
-            cache: "no-store",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                name,
-                email,
-                password
+        try {
+
+            const response = await fetch(URL + '/users/register', {
+                method: "POST",
+                cache: "no-store",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    name,
+                    email,
+                    password
+                })
             })
-        })
 
-        const result = await response.json()
+            const result = await response.json()
 
-        if (response.ok) {
-            ToastAndroid.showWithGravity('Register success, Please Login to My Laundry!', ToastAndroid.LONG, ToastAndroid.TOP)
-            navigation.navigate('LoginForm')
-        } else {
-            ToastAndroid.showWithGravity(result.message, ToastAndroid.LONG, ToastAndroid.TOP)
+            if (response.ok) {
+                ToastAndroid.showWithGravity('Register success, Please Login to My Laundry!', ToastAndroid.LONG, ToastAndroid.TOP)
+                navigation.navigate('LoginForm')
+            } else {
+                ToastAndroid.showWithGravity(result.message, ToastAndroid.LONG, ToastAndroid.TOP)
+            }
+        } catch (error) {
+            console.log(error , "Dari register");
         }
     }
 

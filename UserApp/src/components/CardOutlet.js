@@ -12,38 +12,44 @@ const OutletCard = ({ filter }) => {
     const navigation = useNavigation()
 
     const fetchData = async () => {
-        if (filter) {
-            console.log(filter);
-            const response = await fetch(URL + '/outlets/get', {
-                method: "POST",
-                cache: "no-store",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": "Bearer " + isLogin
-                },
-                body: JSON.stringify({filter})
-            })
-            const data = await response.json();
-            setOutlet(data)
-        } else {
-            const response = await fetch(URL + '/outlets/get', {
-                method: "POST",
-                cache: "no-store",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": "Bearer " + isLogin
-                }
-            })
-            const data = await response.json();
-            setOutlet(data)
+        try {
+            if (filter) {
+                console.log(filter);
+                const response = await fetch(URL + '/outlets/get', {
+                    method: "POST",
+                    cache: "no-store",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": "Bearer " + isLogin
+                    },
+                    body: JSON.stringify({filter})
+                })
+                const data = await response.json();
+                setOutlet(data)
+            } else {
+                const response = await fetch(URL + '/outlets/get', {
+                    method: "POST",
+                    cache: "no-store",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": "Bearer " + isLogin
+                    }
+                })
+                const data = await response.json();
+                setOutlet(data)
+            }
+        } catch (error) {
+            console.log(error, "dari card outlet");
         }
     }
+
+
     useEffect(() => {
         fetchData()
     }, [filter])
 
     const handleCardPress = (id) => {
-        navigation.navigate('DetailOutletScreen', { id });
+        navigation.navigate('DetailOutlet', { id });
     };
 
     return (
