@@ -19,27 +19,32 @@ export default function LoginForm() {
     const { setIsLogin, URL } = useContext(LoginContext)
 
     const handleClick = async () => {
-        const response = await fetch(URL + '/users/login', {
-            method: "POST",
-            cache: "no-store",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                email,
-                password
+        try {
+            const response = await fetch(URL + '/users/login', {
+                method: "POST",
+                cache: "no-store",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    email,
+                    password
+
+                })
             })
-        })
 
-        const result = await response.json()
+            const result = await response.json()
 
-        if (response.ok) {
-            await save("access_token", result.access_token)
-            setIsLogin(result.access_token)
-            // ToastAndroid.showWithGravity('Success Login, Welcome to My Laundry!', ToastAndroid.LONG, ToastAndroid.TOP)
-        } else {
-            console.log("error");
-            // ToastAndroid.showWithGravity(result.message, ToastAndroid.LONG, ToastAndroid.TOP)
+            if (response.ok) {
+                await save("access_token", result.access_token)
+                setIsLogin(result.access_token)
+                ToastAndroid.showWithGravity('Success Login, Welcome to My Laundry!', ToastAndroid.LONG, ToastAndroid.TOP)
+            } else {
+                console.log("error");
+                ToastAndroid.showWithGravity(result.message, ToastAndroid.LONG, ToastAndroid.TOP)
+            }
+        } catch (error) {
+            throw error(error.message)
         }
     }
 

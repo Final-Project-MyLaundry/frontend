@@ -14,16 +14,20 @@ export default function Profile() {
     const { isLogin, URL } = useContext(LoginContext)
     const [profile, setProfile] = useState([])
     const fetchData = async () => {
-        const response = await fetch(URL + '/users/provider', {
-            method: "GET",
-            cache: "no-store",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Bearer " + isLogin
-            }
-        })
-        const data = await response.json();
-        setProfile(data)
+        try {
+            const response = await fetch(URL + '/users/provider', {
+                method: "GET",
+                cache: "no-store",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + isLogin
+                }
+            })
+            const data = await response.json();
+            setProfile(data)
+        } catch (error) {
+            console.log(error , "dari profile");
+        }
     }
 
     useEffect(() => {
@@ -37,7 +41,7 @@ export default function Profile() {
     const myWebComponent = async () => {
         console.log('tertekan');
         <WebView
-            source={{ uri: 'https://reactnative.dev' }} style={{flex: 1}}
+            source={{ uri: 'https://reactnative.dev' }} style={{ flex: 1 }}
         />
     }
 
@@ -59,7 +63,7 @@ export default function Profile() {
                         </View>
                     </View>
                     <View style={styles.actionButtons}>
-                        <TouchableOpacity style={styles.topUpButton} onPress={() => navigation.navigate('WebViewScreen')}>
+                        <TouchableOpacity style={styles.topUpButton} onPress={() => navigation.navigate('TopUpScreen')}>
                             <Text style={styles.buttonText}>Top Up</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.editButton} onPress={handleEditPress}>

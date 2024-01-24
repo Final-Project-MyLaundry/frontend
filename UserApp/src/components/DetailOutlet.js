@@ -1,155 +1,114 @@
-import { FlatList, Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { useNavigation, useRoute } from "@react-navigation/native";
-import { useContext, useEffect, useState } from 'react';
+
+import { Image, SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
 
 
-import { LoginContext } from '../../context/LoginContext';
 
 
-export default function DetailOutlet() {
-
-    const route = useRoute()
-    // console.log(route.params);
-
-    const { isLogin, URL } = useContext(LoginContext)
-    const [data, setData] = useState([])
-
-    const fetchData = async () => {
-        let { id } = route.params
-        // console.log(id);
-        const response = await fetch(URL + '/outlets/detail/' + id, {
-            method: "GET",
-            cache: "no-store",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Bearer " + isLogin
-            }
-        })
-        const data = await response.json();
-        // console.log(data);
-        setData(data)
-    }
-    useEffect(() => {
-        fetchData()
-    }, [])
-
-
-    const navigation = useNavigation()
-
-    const renderService = ({ item }) => (
-        <View style={styles.serviceContainer}>
-            <Text>Name: {item.name}</Text>
-            <Text>Description: {item.description}</Text>
-            <Text>Price: Rp. {item.price}</Text>
-        </View>
-    );
-
-    const renderReview = ({ item }) => (
-        <View style={styles.reviewContainer}>
-            <Text>{item.name[0]}</Text>
-            <Text>Rating: {item.rating}</Text>
-            <Text>Review: {item.review}</Text>
-        </View>
-    );
+export default function DetailOutlet({outlet}) {
+    console.log(outlet);
 
     return (
-        <>
         <SafeAreaView style={styles.container}>
-            <View style={styles.container}>
+            <ScrollView>
                 <View style={styles.content}>
-                    <Image
-                        source={{ uri: data[0]?.image }}
-                        style={styles.outletImage}
-                    />
+                    <View style={styles.positionUserImage} >
+                        <Image
+                            source={require('../../assets/express.png')}
+                            style={{ width: 100, height: 95 }}
+                        />
+                    </View>
                     <View style={styles.textContent}>
-                        <Text style={styles.outletName}>{data[0]?.name}</Text>
-                        <Text style={styles.outletAddress}>
-                            Alamat: {data[0]?.address?.street},{' '}
-                            {data[0]?.address?.village},{' '}
-                            {data[0]?.address?.district}, {data[0]?.address?.city}
-                        </Text>
+                        <Text style={styles.welcome}>{outlet[0]?.name} </Text>
+                        <Text>{outlet[0]?.address.street} {outlet[0]?.address.village} {outlet[0]?.address.district} {outlet[0]?.address.city}</Text>
+
                     </View>
                 </View>
-
-                <Text style={styles.sectionTitle}>Services :</Text>
-                <View>
-                    <FlatList
-                        data={data[0]?.services}
-                        renderItem={renderService}
-                        keyExtractor={(item, i) => i}
-                        initialNumToRender={3}
-                        maxToRenderPerBatch={3}
-                        windowSize={3}
-                    />
-                </View>
-
-                <Text style={styles.sectionTitle}>Reviews :</Text>
-                <FlatList
-                    data={data[0]?.reviews}
-                    renderItem={renderReview}
-                    keyExtractor={(item,i) => i}
-                    initialNumToRender={3}
-                    maxToRenderPerBatch={3}
-                    windowSize={3}
-                />
-            </View>
+                <Text style={{ fontWeight: 'bold', borderBottomWidth: 1, paddingBottom: 5 }}>Services :</Text>
+            </ScrollView>
         </SafeAreaView>
-        </>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
+        flexDirection: 'row',
         padding: 20,
+        borderTopWidth: 1,
+        borderColor: "#D4D4D4",
+
     },
     content: {
+        height: "auto",
         flexDirection: 'row',
-        marginTop: 10,
     },
-    outletImage: {
-        width: 100,
-        height: 100,
-        marginRight: 10,
-        borderRadius: 8,
-    },
-    textContent: {
+    positionUserImage: {
         flex: 1,
     },
-    outletName: {
-        fontWeight: 'bold',
-        fontSize: 20,
+    textContent: {
+        flex: 2,
+    },
+    welcome: {
+        fontWeight: "bold",
+        fontSize: 20
+    },
+    card: {
+        backgroundColor: '#0C94D2',
+        borderRadius: 15,
+        marginTop: 10,
+        marginBottom: 10,
+        padding: 10,
+        shadowColor: 'black',
+        shadowOffset: {
+            width: 10,
+            height: 10,
+        },
+        shadowOpacity: 0.3,
+        shadowRadius: 6,
+        width: 'auto',
+        height: 130,
+        justifyContent: 'space-between',
+        alignItems: 'flex-start',
+        flexDirection: 'row',
+        borderColor: "gray",
+        borderWidth: 1,
+        elevation: 7,
+    },
+    saldoContainer: {
+        flex: 1,
         marginTop: 10,
     },
-    outletAddress: {
-        fontSize: 16,
-        marginTop: 5,
-        color: 'gray',
-    },
-    sectionTitle: {
+    saldoText: {
         fontWeight: 'bold',
         fontSize: 16,
-        marginTop: 20,
-        marginBottom: 10,
+        color: 'white'
     },
-    transactionContainer: {
-        marginBottom: 15,
-        padding: 10,
-        borderWidth: 1,
-        borderColor: 'black',
+    claimButton: {
+        backgroundColor: 'white',
         borderRadius: 8,
+        paddingVertical: 8,
+        paddingHorizontal: 12,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 10,
     },
-    serviceContainer: {
-        marginBottom: 15,
-        padding: 10,
-        borderWidth: 1,
-        borderColor: 'black',
-        borderRadius: 8,
+    claimButtonText: {
+        color: 'black',
+        fontWeight: 'bold',
     },
-    reviewContainer: {
-        marginBottom: 15,
-        padding: 10,
-        borderWidth: 1,
-        borderColor: 'black',
-        borderRadius: 8,
+    nameText: {
+        fontSize: 14,
+        color: 'white',
+    },
+    buttonAdddPost: {
+        position: "absolute",
+        bottom: 10,
+        right: 15,
+        zIndex: 1,
+        borderRadius: 24,
+        backgroundColor: "#1d9bf0",
+        alignItems: "center",
+        justifyContent: "center",
+        width: 30,
+        height: 30,
     }
 });

@@ -1,4 +1,4 @@
-import { FlatList, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { FlatList, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View, CheckBox } from "react-native";
 import { useContext, useEffect, useState } from "react";
 import { LoginContext } from "../../context/LoginContext";
 
@@ -6,17 +6,23 @@ export default function CardOrder() {
     const { isLogin, URL } = useContext(LoginContext)
     const [order, setOrder] = useState([])
     const fetchData = async () => {
-        const response = await fetch(URL + '/orders/customer', {
-            method: "GET",
-            cache: "no-store",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Bearer " + isLogin
-            }
-        })
-        const data = await response.json();
-        setOrder(data)
+        try {
+            const response = await fetch(URL + '/orders/customer', {
+                method: "GET",
+                cache: "no-store",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + isLogin
+                }
+            })
+            const data = await response.json();
+            setOrder(data)
+        } catch (error) {
+            console.log(error , "dari card order");
+        }
     }
+
+
     useEffect(() => {
         fetchData()
     }, [])
@@ -31,7 +37,7 @@ export default function CardOrder() {
                     <View style={styles.orderText}>
                         <Text style={{ fontWeight: 'bold', fontSize: 18 }}>Pesanan No : {index + 1}</Text>
                         <Text>Amount : Rp. {item.totalAmount}</Text>
-                        <Text>Status  : {item.progress}</Text>
+                        <Text>Status  : <Text style={{ fontWeight : 'bold', color : '#de0a26'}}> {item.progress} </Text></Text>
                         <Text>Payment : {item.statusPay}</Text>
                     </View>
                 </View>

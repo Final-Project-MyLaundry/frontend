@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import { useContext, useEffect, useState } from 'react';
-import { Image, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import {  SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { LoginContext } from '../../context/LoginContext';
 
 
@@ -23,17 +23,20 @@ export default function UpdateProfile() {
     });
 
     const fetchProfile = async () => {
-        const response = await fetch(URL + '/users/provider', {
-            method: "GET",
-            cache: "no-store",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Bearer " + isLogin
-            }
-        })
-        const data = await response.json();
-        console.log(data);
-        setProfile(data)
+        try {
+            const response = await fetch(URL + '/users/provider', {
+                method: "GET",
+                cache: "no-store",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + isLogin
+                }
+            })
+            const data = await response.json();
+            setProfile(data)
+        } catch (error) {
+            console.log(error, "dari update profile");
+        }
     }
     const handleOnClick = async () => {
               const response = await fetch(URL + '/users', {
@@ -46,7 +49,6 @@ export default function UpdateProfile() {
             body: JSON.stringify(profile)
         })
         if (response.ok) {
-            // ToastAndroid.showWithGravity('Succes Update Profile!', ToastAndroid.LONG, ToastAndroid.TOP)
             navigation.navigate("Profile")
         }
     }

@@ -2,13 +2,12 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LoginForm from "../src/components/Login";
 import RegisterForm from "../src/components/Register";
 import TabNavigator from "./TabNavigator";
-import DetailOutlet from "../src/components/DetailOutlet";
 import { useContext } from "react";
 import { LoginContext } from "../context/LoginContext";
 import UpdateProfile from "../src/components/UpdateProfile";
-import Profile from "../src/components/Profile";
-import WebView from "../src/components/WebView";
 import WebViewScreen from "../screens/WebViewScreen";
+import TopUpSaldo from "../src/components/TopUpSaldo";
+import DetailOutletScreen from "../screens/DetailOutletScreen";
 
 
 const Stack = createNativeStackNavigator();
@@ -25,8 +24,9 @@ export default function StackNavigator() {
                 isLogin ? (
                     <>
                         <Stack.Screen name="Home" component={TabNavigator} />
-                        <Stack.Screen name="DetailOutletScreen" component={DetailOutlet} />
+                        <Stack.Screen name="DetailOutlet" component={DetailOutletScreen} />
                         <Stack.Screen name="UpdateProfileScreen" component={UpdateProfile} />
+                        <Stack.Screen name="TopUpScreen" component={TopUpSaldo} />
                         <Stack.Screen name="WebViewScreen" component={WebViewScreen} />
                     </>
                 ) : (
