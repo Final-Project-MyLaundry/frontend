@@ -22,10 +22,11 @@ const OutletCard = ({ filter }) => {
                         "Content-Type": "application/json",
                         "Authorization": "Bearer " + isLogin
                     },
-                    body: JSON.stringify({filter})
+                    body: JSON.stringify({ filter: filter })
                 })
                 const data = await response.json();
                 setOutlet(data)
+
             } else {
                 const response = await fetch(URL + '/outlets/get', {
                     method: "POST",

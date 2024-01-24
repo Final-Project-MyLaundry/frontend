@@ -1,4 +1,4 @@
-import { SafeAreaView, Text } from "react-native";
+import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import DetailOutlet from "../src/components/DetailOutlet";
 import CardServices from "../src/components/cardService";
 import { LoginContext } from "../context/LoginContext";
@@ -28,11 +28,21 @@ export default function DetailOutletScreen() {
     useEffect(() => {
         fetchOutlet()
     }, [])
+    // console.log(outlet);
     return (
-        <SafeAreaView>
-        <Text>Test</Text>
-           <DetailOutlet outlet={outlet}/>
-           <CardServices services={outlet[0]?.result}/>
+        <SafeAreaView style={styles.container}>
+            <DetailOutlet outlet={outlet} />
+            <CardServices services={outlet[0]?.services} outletId={outlet[0]?._id}/>
         </SafeAreaView>
     )
 }
+
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        paddingTop: 20,
+        borderTopWidth: 1,
+        borderColor: "#D4D4D4",
+    }
+})
